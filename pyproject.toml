@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "autodml"
-version = "0.1.1"
+version = "0.1.2"
 description = "Auto Modeling Definition Language - build MDL semantic layer models from your database, in pure Python."
 readme = "README.md"
 requires-python = ">=3.10"

@@ -84,7 +84,13 @@ def _cmd_validate(args) -> int:
 
 def _cmd_export(args) -> int:
     m = _load_any(args.path)
-    if args.format == "yaml-dir":
+    if args.format == "cubepy":
+        from .exporters.cubepy import write_cubepy_yaml
+        out, warnings = write_cubepy_yaml(m, args.out)
+        for w in warnings:
+            print(f"  [warn] {w}", file=sys.stderr)
+        print(f"wrote {out} ({len(warnings)} warnings)")
+    elif args.format == "yaml-dir":
         out = write_dir(m, args.out)
         print(f"wrote {out}/")
     elif args.format == "yaml":
@@ -131,7 +137,7 @@ def build_parser() -> argparse.ArgumentParser:
     sp = sub.add_parser("export", help="convert manifest to mdl.json / yaml")
     sp.add_argument("path", help="source manifest or directory")
     sp.add_argument("-o", "--out", default="mdl.json")
-    sp.add_argument("--format", choices=["json", "yaml", "yaml-dir"], default="json")
+    sp.add_argument("--format", choices=["json", "yaml", "yaml-dir", "cubepy"], default="json")
     sp.set_defaults(func=_cmd_export)
 
     sp = sub.add_parser("reflect", help="generate manifest from live database")

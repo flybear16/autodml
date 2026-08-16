@@ -96,6 +96,7 @@ autodml init ./proj                     # 脚手架
 autodml validate ./proj                 # lint（error 退出码 1）
 autodml export ./proj -o mdl.json       # 导出 mdl.json
 autodml export ./proj -o out/ --format yaml-dir
+autodml export mdl.json -o cubes.yml --format cubepy  # 导出 [cubepy](https://github.com/flybear16/cubepy) 语义层 schema（活库→cube YAML 一键生成）
 autodml reflect "postgresql://..." --schema public -o mdl.json
 ```
 
