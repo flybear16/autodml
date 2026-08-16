@@ -1,0 +1,10 @@
+metrics:
+  - name: total_revenue
+    baseModel: orders
+    expression: SUM(amount)
+    type: decimal
+    description: 总营收
+  - name: order_count
+    baseModel: orders
+    expression: COUNT(*)
+    type: integer

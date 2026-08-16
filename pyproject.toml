@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "autodml"
+version = "0.1.1"
+description = "Auto Modeling Definition Language - build MDL semantic layer models from your database, in pure Python."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "flybear" }]
+keywords = ["mdl", "semantic-layer", "text-to-sql", "metadata"]
+dependencies = ["PyYAML>=6.0"]
+
+[project.optional-dependencies]
+db = ["SQLAlchemy>=2.0"]
+dev = ["pytest>=8.0", "SQLAlchemy>=2.0"]
+
+[project.scripts]
+autodml = "autodml.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/autodml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,124 @@
+{
+  "manifest": "shop",
+  "version": "1.0.0",
+  "models": [
+    {
+      "name": "customers",
+      "refSql": "public.customers",
+      "columns": [
+        {
+          "name": "id",
+          "type": "integer",
+          "notNull": true,
+          "isPrimary": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "notNull": false,
+          "isPrimary": false
+        },
+        {
+          "name": "vip",
+          "type": "boolean",
+          "notNull": false,
+          "isPrimary": false
+        },
+        {
+          "name": "signup_date",
+          "type": "date",
+          "notNull": false,
+          "isPrimary": false
+        }
+      ],
+      "calculations": [],
+      "description": "注册客户表",
+      "cached": false
+    },
+    {
+      "name": "orders",
+      "refSql": "public.orders",
+      "columns": [
+        {
+          "name": "id",
+          "type": "integer",
+          "notNull": true,
+          "isPrimary": true
+        },
+        {
+          "name": "customer_id",
+          "type": "integer",
+          "notNull": false,
+          "isPrimary": false
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "notNull": false,
+          "isPrimary": false
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "notNull": false,
+          "isPrimary": false
+        }
+      ],
+      "calculations": [
+        {
+          "name": "amount_with_tax",
+          "expression": "amount * 1.1",
+          "type": "decimal",
+          "description": "含税金额"
+        }
+      ],
+      "description": "订单表",
+      "cached": false
+    }
+  ],
+  "relationships": [
+    {
+      "name": "orders_customer_fk",
+      "relationType": "manyToOne",
+      "left": {
+        "modelName": "orders",
+        "columnName": "customer_id"
+      },
+      "right": {
+        "modelName": "customers",
+        "columnName": "id"
+      }
+    }
+  ],
+  "metrics": [
+    {
+      "name": "total_revenue",
+      "baseModel": "orders",
+      "expression": "SUM(amount)",
+      "type": "decimal",
+      "description": "总营收"
+    },
+    {
+      "name": "order_count",
+      "baseModel": "orders",
+      "expression": "COUNT(*)",
+      "type": "integer"
+    }
+  ],
+  "views": [
+    {
+      "name": "active_customers",
+      "statement": "SELECT customers.id, customers.name FROM customers WHERE customers.vip = true",
+      "columns": [
+        {
+          "name": "id",
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

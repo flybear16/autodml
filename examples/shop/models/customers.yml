@@ -1,0 +1,14 @@
+name: customers
+refSql: public.customers
+description: 注册客户表
+columns:
+  - name: id
+    type: integer
+    notNull: true
+    isPrimary: true
+  - name: name
+    type: string
+  - name: vip
+    type: boolean
+  - name: signup_date
+    type: date

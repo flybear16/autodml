@@ -1,0 +1,86 @@
+{
+  "manifest": "default",
+  "version": "1.0.0",
+  "models": [
+    {
+      "name": "customers",
+      "refSql": "customers",
+      "columns": [
+        {
+          "name": "id",
+          "type": "integer",
+          "notNull": false,
+          "isPrimary": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "notNull": true,
+          "isPrimary": false
+        },
+        {
+          "name": "vip",
+          "type": "boolean",
+          "notNull": false,
+          "isPrimary": false
+        },
+        {
+          "name": "signup_date",
+          "type": "date",
+          "notNull": false,
+          "isPrimary": false
+        }
+      ],
+      "calculations": [],
+      "cached": false
+    },
+    {
+      "name": "orders",
+      "refSql": "orders",
+      "columns": [
+        {
+          "name": "id",
+          "type": "integer",
+          "notNull": false,
+          "isPrimary": true
+        },
+        {
+          "name": "customer_id",
+          "type": "integer",
+          "notNull": false,
+          "isPrimary": false
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "notNull": false,
+          "isPrimary": false
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "notNull": false,
+          "isPrimary": false
+        }
+      ],
+      "calculations": [],
+      "cached": false
+    }
+  ],
+  "relationships": [
+    {
+      "name": "orders_customers_fk",
+      "relationType": "manyToOne",
+      "left": {
+        "modelName": "orders",
+        "columnName": "customer_id"
+      },
+      "right": {
+        "modelName": "customers",
+        "columnName": "id"
+      }
+    }
+  ],
+  "metrics": [],
+  "views": []
+}

@@ -1,0 +1,19 @@
+name: orders
+refSql: public.orders
+description: 订单表
+columns:
+  - name: id
+    type: integer
+    notNull: true
+    isPrimary: true
+  - name: customer_id
+    type: integer
+  - name: amount
+    type: decimal
+  - name: created_at
+    type: timestamp
+calculations:
+  - name: amount_with_tax
+    expression: amount * 1.1
+    type: decimal
+    description: 含税金额

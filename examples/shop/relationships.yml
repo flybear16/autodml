@@ -1,0 +1,9 @@
+relationships:
+  - name: orders_customer_fk
+    relationType: manyToOne
+    left:
+      modelName: orders
+      columnName: customer_id
+    right:
+      modelName: customers
+      columnName: id
